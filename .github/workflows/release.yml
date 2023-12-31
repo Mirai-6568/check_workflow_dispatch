@@ -24,4 +24,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: v${{ github.event.inputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           body: v${{ github.event.inputs.release_note }}
