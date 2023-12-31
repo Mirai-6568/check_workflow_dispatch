@@ -25,4 +25,4 @@ jobs:
         with:
           tag: v${{ github.event.inputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          body: v${{ github.event.inputs.release_note }}
+          body: ${{ github.event.inputs.release_note }}
