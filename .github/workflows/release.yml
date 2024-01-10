@@ -40,19 +40,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name-template: 'v$RESOLVED_VERSION 🌈'
-          tag-template: 'v$RESOLVED_VERSION'
-          version-resolver:
-            major:
-              labels:
-                - 'major'
-            minor:
-              labels:
-                - 'minor'
-            patch:
-              labels:
-                - 'patch'
-            default: patch
+
           template: |
             ## Changes
 
