@@ -9,3 +9,4 @@ class Hello:
 
     def new_hello(self):
         print("NEWHELLO")
+        print("HELLO")
