@@ -42,16 +42,22 @@ jobs:
           if [ ${UPDATE_TYPE} = "major" ]; then MajorVersion=$((MajorVersion + 1))
           elif [ ${UPDATE_TYPE} = "minor" ]; then MinorVersion=$((MinorVersion + 1))
           else PatchVersion=$((PatchVersion + 1)); fi
-          # Output New Version
+          # Output Current Version and New Version
+          echo "current_version=v$CurrentVersion"  >> $GITHUB_OUTPUT
           echo "new_version=v$MajorVersion.$MinorVersion.$PatchVersion" >> $GITHUB_OUTPUT
         env:
           UPDATE_TYPE: ${{ github.event.inputs.update_type }}
+      - name: Get Release Note
+        id: get_release_note
+        run: |
+          ReleaseNote=$(curl -X POST -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/generate-notes -d '{"tag_name":"${{ steps.get_new_version.outputs.new_version }}", "previous_tag_name":"${{ steps.get_new_version.outputs.current_version }}"}' | jq .body | sed 's/"//g')
+          echo "release_note=$ReleaseNote" >> $GITHUB_OUTPUT
       - name: Create Tag
         run: |
           git tag ${{ steps.get_new_version.outputs.new_version }}
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          body: ${{ github.event.inputs.release_note }}
+          body: ${{ steps.get_release_note.outputs.release_note }}
           tag: ${{ steps.get_new_version.outputs.new_version }}
           token: ${{ secrets.GITHUB_TOKEN }}
