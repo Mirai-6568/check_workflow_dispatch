@@ -37,6 +37,9 @@ jobs:
           MajorVersion=${VersionArray[0]}
           MinorVersion=${VersionArray[1]}
           PatchVersion=${VersionArray[2]}
+          MajorVersion=`git describe --tags $(git rev-list --tags --max-count=1) | awk '{split($0, version, "."); print version[1]}'`
+          MinorVersion=`git describe --tags $(git rev-list --tags --max-count=1) | awk '{split($0, version, "."); print version[2]}'`
+          PatchVersion=`git describe --tags $(git rev-list --tags --max-count=1) | awk '{split($0, version, "."); print version[3]}'`
           # Update to New Version
           if [ ${UPDATE_TYPE} = "major" ]; then MajorVersion=$((MajorVersion + 1))
           elif [ ${UPDATE_TYPE} = "minor" ]; then MinorVersion=$((MinorVersion + 1))
