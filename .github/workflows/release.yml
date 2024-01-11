@@ -48,7 +48,7 @@ jobs:
           UPDATE_TYPE: ${{ github.event.inputs.update_type }}
       - name: Create Tag
         run: |
-          git tag v${{ steps.get_new_version.outputs.new_version }}
+          git tag ${{ steps.get_new_version.outputs.new_version }}
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
