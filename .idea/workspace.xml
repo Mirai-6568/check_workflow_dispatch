@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9d77a11-123e-4698-8184-94bc8eb04ece" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/label.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/release.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/release.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/release-drafter.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/release_sub.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/release_sub.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
