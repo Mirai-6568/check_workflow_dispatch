@@ -50,6 +50,8 @@ jobs:
           ReleaseNote=$(gh api --method POST -H "Accept: application/vnd.github+json" /repos/{owner}/{repo}/releases/generate-notes -f tag_name="v$VERSION" -f target_commitish='main' | jq --raw-output .body)
           echo $ReleaseNote
           echo "release_note=$ReleaseNote" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
