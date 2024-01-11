@@ -12,6 +12,9 @@ on:
           - major
           - minor
           - patch
+      release_note:
+        description: "Release Note"
+        required: false
 
 jobs:
   release:
