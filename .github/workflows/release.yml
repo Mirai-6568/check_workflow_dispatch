@@ -27,6 +27,7 @@ jobs:
         run: |
           # Get Current Version (ex. 0.3.6)
           CurrentVersion=`git describe --tags --abbrev=0 | cut -c 2-`
+          echo $CurrentVersion
           # Divide Version with Space (ex. 0 3 6)
           SpaceDividedVersion=${CurrentVersion//./ }
           # Make Array (ex. (0 3 6))
