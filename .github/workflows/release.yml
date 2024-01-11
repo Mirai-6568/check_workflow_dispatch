@@ -22,12 +22,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Unshallow
+        run: git fetch --prune --unshallow --tags
       - name: Get New Version
         id: get_new_version
         run: |
           # Get Current Version (ex. 0.3.6)
           CurrentVersion=`git describe --tags --abbrev=0 | cut -c 2-`
-          echo $CurrentVersion
           # Divide Version with Space (ex. 0 3 6)
           SpaceDividedVersion=${CurrentVersion//./ }
           # Make Array (ex. (0 3 6))
@@ -37,19 +38,12 @@ jobs:
           MajorVersion=${VersionArray[0]}
           MinorVersion=${VersionArray[1]}
           PatchVersion=${VersionArray[2]}
-          MajorVersion=`git describe --tags $(git rev-list --tags --max-count=1) | awk '{split($0, version, "."); print version[1]}'`
-          MinorVersion=`git describe --tags $(git rev-list --tags --max-count=1) | awk '{split($0, version, "."); print version[2]}'`
-          PatchVersion=`git describe --tags $(git rev-list --tags --max-count=1) | awk '{split($0, version, "."); print version[3]}'`
           # Update to New Version
           if [ ${UPDATE_TYPE} = "major" ]; then MajorVersion=$((MajorVersion + 1))
           elif [ ${UPDATE_TYPE} = "minor" ]; then MinorVersion=$((MinorVersion + 1))
           else PatchVersion=$((PatchVersion + 1)); fi
           # Output New Version
-          echo $MajorVersion
-          echo $MinorVersion
-          echo $PatchVersion
-          echo $MajorVersion.$MinorVersion.$PatchVersion
-          echo "new_version=$MajorVersion.$MinorVersion.$PatchVersion" >> $GITHUB_OUTPUT
+          echo "new_version=v$MajorVersion.$MinorVersion.$PatchVersion" >> $GITHUB_OUTPUT
         env:
           UPDATE_TYPE: ${{ github.event.inputs.update_type }}
       - name: Create Tag
@@ -59,5 +53,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           body: ${{ github.event.inputs.release_note }}
-          tag: v${{ steps.get_new_version.outputs.new_version }}
+          tag: ${{ steps.get_new_version.outputs.new_version }}
           token: ${{ secrets.GITHUB_TOKEN }}
