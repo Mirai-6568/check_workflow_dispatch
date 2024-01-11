@@ -41,7 +41,7 @@ jobs:
           elif [ ${UPDATE_TYPE} = "minor" ]; then MinorVersion=$((MinorVersion + 1))
           else PatchVersion=$((PatchVersion + 1)); fi
           # Output New Version
-          echo "new_version=v$MajorVersion.$MinorVersion.$PatchVersion" >> $GITHUB_OUTPUT
+          echo "new_version=$MajorVersion.$MinorVersion.$PatchVersion" >> $GITHUB_OUTPUT
         env:
           UPDATE_TYPE: ${{ github.event.inputs.update_type }}
       - name: Create Tag
