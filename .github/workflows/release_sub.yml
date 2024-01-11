@@ -48,8 +48,9 @@ jobs:
         id: get_release_note
         run: |
           ReleaseNote=$(gh api /repos/{owner}/{repo}/releases/generate-notes -f tag_name=${{ steps.get_new_version.outputs.new_version }} -f previous_tag_name=${{ steps.get_new_version.outputs.current_version }} --jq .body)
-          echo $ReleaseNote
-          echo "release_note=$ReleaseNote" >> $GITHUB_OUTPUT
+          echo "release_note<<$EOF" >> "$GITHUB_OUTPUT"
+          echo "$ReleaseNote" >> $GITHUB_OUTPUT
+          echo "$EOF" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
