@@ -11,3 +11,4 @@ class Hello:
         print("NEWHELLO")
         print("HELLO")
         print("HELLOOOO")
+        print("HELLOOOOOO")
