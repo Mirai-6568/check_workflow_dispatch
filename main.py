@@ -10,3 +10,4 @@ class Hello:
     def new_hello(self):
         print("NEWHELLO")
         print("HELLO")
+        print("HELLOOOO")
