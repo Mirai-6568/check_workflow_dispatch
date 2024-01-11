@@ -12,3 +12,4 @@ class Hello:
         print("HELLO")
         print("HELLOOOO")
         print("HELLOOOOOO")
+        print("a")
