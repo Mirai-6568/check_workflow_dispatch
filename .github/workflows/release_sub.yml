@@ -36,9 +36,16 @@ jobs:
           MinorVersion=${VersionArray[1]}
           PatchVersion=${VersionArray[2]}
           # Update to New Version
-          if [ ${UPDATE_TYPE} = "major" ]; then MajorVersion=$((MajorVersion + 1))
-          elif [ ${UPDATE_TYPE} = "minor" ]; then MinorVersion=$((MinorVersion + 1))
-          else PatchVersion=$((PatchVersion + 1)); fi
+          if [ ${UPDATE_TYPE} = "major" ]; then
+            MajorVersion=$((MajorVersion + 1))
+            MinorVersion=0
+            PatchVersion=0
+          elif [ ${UPDATE_TYPE} = "minor" ]; then
+            MinorVersion=$((MinorVersion + 1))
+            PatchVersion=0
+          else
+            PatchVersion=$((PatchVersion + 1))
+          fi
           # Output Current Version and New Version
           echo "current_version=v$CurrentVersion"  >> $GITHUB_OUTPUT
           echo "new_version=v$MajorVersion.$MinorVersion.$PatchVersion" >> $GITHUB_OUTPUT
